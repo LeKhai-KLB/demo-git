@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Thêm react dạng script vào html -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script src="./app.js"></script>
+
+    <script type = "text/babel">
+        /*
+            - Đây là một React Component
+            - Có thể sử dụng destructuring
+            - chẳng hạn 1 props có nhiều properties
+            - tuy nhiên ta chỉ sử dụng 1 số properties cần thiết
+            - Ngoài ra sử dụng destructuring ta có thể tạo giá trị mặc định cho 
+                các properties
+        */
+        function PostItemComponent({
+            src = "",
+            title = "",
+            desc = "",
+            published = "",
+            callback = () => {}
+        }){
+
+            // Không cần kiểm tra
+            // if(typeof callback === 'function')
+            //     callback(Math.random())
+            callback(Math.random());
+
+            return (
+                <div className="post-item">
+                    <img src={src} alt={title}/>
+                    <h2 className="post-title">{title}</h2>
+                    <p className = "post-desc">{desc}</p>
+                    <p className = "post-published">{published}</p>
+                </div>
+            )
+
+        }
+        /* 
+            - React component: biến postList
+            - React element: thẻ div postList 
+            - Các props có thể là bất cứ kiểu dữ liệu nào:
+                string, number, boolean hay thâm chí là function
+            - bản chất Component là 1 hàm nên khi truyền function và nghĩa là đang truyền 1 callback
+        */
+        const postList = (
+            <div className="post-list"> 
+                <PostItemComponent
+                    src = "https://files.fullstack.edu.vn/f8-prod/blog_posts/1671/61b6368a3a089.jpg"
+                    title = "Thời gian và động lực"
+                    desc = "Dân dã gọi là lịch thường nhật"
+                    pulished = "2 tháng trước"
+                    callback = {(randomNumber) =>{
+                        console.log(randomNumber)
+                    }}
+                />
+                <PostItemComponent
+                    src = "https://files.fullstack.edu.vn/f8-prod/blog_posts/1653/61b46a3d757cc.png"
+                    title = "Tailwind css và cách cài đặt cơ bản "
+                    desc = "Bạn đang lo lắng vì đặt tên class, sợ bị trùng css không mong muốn"
+                    pulished = "2 tháng trước"
+                />
+            </div>
+        )
+
+        // class và for trong html => className, forHtml trong React
+        const emailInfo = 
+            <React.Fragment>
+                <label className = "emailLabel" for="emailInput">Email</label>
+                <input type="text" id = "emailInput"/>    
+            </React.Fragment>
+
+        // component để render
+        function App(){ 
+            return postList;
+        }
+
+        ReactDOM.render(<App/>, document.getElementById('root'))
+
+    </script>
+
+    <script type = "text/babel", title = "Bài tập về nha" src = "homeWork.js">
+
+    </script>
+
+</body>
+</html>
